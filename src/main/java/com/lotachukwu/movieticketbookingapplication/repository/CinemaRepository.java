@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CinemaRepository extends MongoRepository<Cinema, String> {
 
+
+    boolean existsByLocation(String location);
 }
