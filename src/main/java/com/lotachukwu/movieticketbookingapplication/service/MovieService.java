@@ -8,4 +8,6 @@ public interface MovieService {
 
 
     CreateMovieResponse createMovie(CreateMovieRequest createMovieRequest);
+
+    void deleteAll();
 }

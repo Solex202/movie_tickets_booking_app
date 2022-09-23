@@ -13,7 +13,6 @@ public class CreateCinemaRequest {
     private String name;
     private String city;
     private String location;
-//    private MovieHall[] movieHalls;
     private List<String> movies = new ArrayList<>();
     private int numberOfHalls;
 }

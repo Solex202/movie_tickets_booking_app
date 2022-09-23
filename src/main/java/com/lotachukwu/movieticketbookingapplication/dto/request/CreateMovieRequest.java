@@ -10,4 +10,6 @@ public class CreateMovieRequest {
     private String language;
     private String genre;
     private String city;
+    private String duration;
+
 }

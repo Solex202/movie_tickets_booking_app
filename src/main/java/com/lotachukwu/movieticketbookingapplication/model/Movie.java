@@ -18,4 +18,6 @@ public class Movie {
     private Set<String> language;
     private Set<String> genre;
     private String city;
+    private String duration;
+    private Show [] shows;
 }

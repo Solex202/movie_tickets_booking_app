@@ -51,13 +51,17 @@ public class CinemaServiceImpl implements CinemaService{
     public List<String> getListOfAllCinemaCities() {
         List<Cinema> cinemas = getListOfCinema();
 
-        List<String> foundCities = new ArrayList<>();
+        List<String> foundCinemaNameAndCity = new ArrayList<>();
         for (Cinema cinema: cinemas) {
            String city =  cinema.getCity();
-           foundCities.add(city);
+           String name = cinema.getName();
+
+           String cityAndName = "Name of Cinema:" + name + "City" + city;
+
+           foundCinemaNameAndCity.add(cityAndName);
 
         }
-        return foundCities;
+        return foundCinemaNameAndCity;
     }
 
     private boolean locationAlreadyExist(String location) {
