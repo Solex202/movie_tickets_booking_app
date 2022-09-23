@@ -1,6 +1,7 @@
 package com.lotachukwu.movieticketbookingapplication.service;
 
 import com.lotachukwu.movieticketbookingapplication.dto.request.CreateMovieRequest;
+import com.lotachukwu.movieticketbookingapplication.dto.request.SearchMovieRequest;
 import com.lotachukwu.movieticketbookingapplication.dto.response.CreateMovieResponse;
 import com.lotachukwu.movieticketbookingapplication.exception.MovieException;
 import com.lotachukwu.movieticketbookingapplication.model.Movie;
@@ -8,9 +9,7 @@ import com.lotachukwu.movieticketbookingapplication.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class MovieServiceImpl implements MovieService{
@@ -21,7 +20,7 @@ public class MovieServiceImpl implements MovieService{
     public CreateMovieResponse createMovie(CreateMovieRequest createMovieRequest) {
 
         if(movieAlreadyExist(createMovieRequest.getTitle())){
-            throw new MovieException("movie with title" + createMovieRequest.getTitle() + "already exists");
+            throw new MovieException("movie with title " + createMovieRequest.getTitle() + "already exists");
         }
 
         Movie movie = new Movie();
@@ -63,6 +62,14 @@ public class MovieServiceImpl implements MovieService{
     @Override
     public void deleteAll() {
         movieRepository.deleteAll();
+    }
+
+    @Override
+    public
+    List<Movie> searchMovie(String searchRequest) {
+        List<Movie> movies = new ArrayList<>();
+        movieRepository.findMovieByLanguage(searchRequest);
+        return null;
     }
 
     private boolean movieAlreadyExist(String title) {

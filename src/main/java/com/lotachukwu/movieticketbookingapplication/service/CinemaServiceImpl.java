@@ -56,11 +56,11 @@ public class CinemaServiceImpl implements CinemaService{
            String city =  cinema.getCity();
            String name = cinema.getName();
 
-           String cityAndName = "Name of Cinema:" + name + "City" + city;
+           String cityAndName = "Name of Cinema:" + name +"--"+ "City:" + city;
 
            foundCinemaNameAndCity.add(cityAndName);
-
         }
+        log.info("=======> {}", foundCinemaNameAndCity);
         return foundCinemaNameAndCity;
     }
 

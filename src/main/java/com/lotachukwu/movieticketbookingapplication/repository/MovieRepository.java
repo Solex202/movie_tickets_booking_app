@@ -6,6 +6,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MovieRepository extends MongoRepository<Movie, String> {
+    Movie findBy(String param);
 
     boolean existsByTitle(String title);
+
+    Movie findMovieByLanguage(String language);
+
+    Movie findMovieByGenre(String genre);
+
+    Movie findMovieByTitle(String title);
 }

@@ -66,7 +66,6 @@ class CinemaServiceTest {
         createCinemaRequest.setCity("Yaba");
         createCinemaRequest.setName("film house");
         createCinemaRequest.setLocation("300 road");
-//        createCinemaRequest.setMovies(List.of("movie 1, movie 2, movie 3"));
         createCinemaRequest.setNumberOfHalls(8);
 
         CreateCinemaResponse createCinema = cinemaService.createCinema(createCinemaRequest);
@@ -75,7 +74,6 @@ class CinemaServiceTest {
         assertThat(createCinema.getName(), is(createCinemaRequest.getName()));
         assertThat(createCinema.getLocation(), is(createCinemaRequest.getLocation()));
         assertThat(createCinema.getNumberOfHalls(), is(createCinemaRequest.getNumberOfHalls()));
-        assertThat(createCinema.getMovies(), is(createCinemaRequest.getMovies()));
     }
 
     @Test
@@ -92,7 +90,6 @@ class CinemaServiceTest {
         assertThat(createCinema.getName(), is(createCinemaRequest.getName()));
         assertThat(createCinema.getLocation(), is(createCinemaRequest.getLocation()));
         assertThat(createCinema.getNumberOfHalls(), is(createCinemaRequest.getNumberOfHalls()));
-        assertThat(createCinema.getMovies(), is(createCinemaRequest.getMovies()));
 
         CreateCinemaRequest createCinemaRequest2 = new CreateCinemaRequest();
         createCinemaRequest2.setCity("Aba");
@@ -101,9 +98,7 @@ class CinemaServiceTest {
         createCinemaRequest2.setNumberOfHalls(6);
 
         assertThrows(CinemaException.class, ()->cinemaService.createCinema(createCinemaRequest2));
-
     }
-
 
     @Test
     void testThatCanGetListOfCitiesWhereCinemasAreLocated(){
@@ -120,7 +115,6 @@ class CinemaServiceTest {
         assertThat(createCinema.getName(), is(createCinemaRequest.getName()));
         assertThat(createCinema.getLocation(), is(createCinemaRequest.getLocation()));
         assertThat(createCinema.getNumberOfHalls(), is(createCinemaRequest.getNumberOfHalls()));
-        assertThat(createCinema.getMovies(), is(createCinemaRequest.getMovies()));
 
         CreateCinemaRequest createCinemaRequest2 = new CreateCinemaRequest();
         createCinemaRequest2.setCity("Aba");
@@ -134,19 +128,17 @@ class CinemaServiceTest {
         assertThat(createCinema2.getName(), is(createCinemaRequest2.getName()));
         assertThat(createCinema2.getLocation(), is(createCinemaRequest2.getLocation()));
         assertThat(createCinema2.getNumberOfHalls(), is(createCinemaRequest2.getNumberOfHalls()));
-        assertThat(createCinema2.getMovies(), is(createCinemaRequest2.getMovies()));
 
         assertThat(cinemaService.getListOfCinema().size(), is(2));
 
         List<String> cinemaCities = cinemaService.getListOfAllCinemaCities();
 
         assertThat(cinemaCities.size(), is(2));
-
-
     }
 
     @AfterEach
     void tearDown() {
         cinemaService.deleteAll();
+         movieService.deleteAll();
     }
 }
