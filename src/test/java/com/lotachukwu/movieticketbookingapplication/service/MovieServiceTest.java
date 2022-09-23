@@ -34,10 +34,10 @@ class MovieServiceTest {
 
         CreateMovieRequest createMovieRequest = new CreateMovieRequest();
         createMovieRequest.setCity("lagos");
-        createMovieRequest.setGenre("Action");
-        createMovieRequest.setLanguage("english");
-        createMovieRequest.setId("234455");
-        createMovieRequest.setTitle("see finish");
+        createMovieRequest.setGenre("Action, drama, thriller");
+        createMovieRequest.setLanguage("english, dutch, french");
+        createMovieRequest.setId("2321232");
+        createMovieRequest.setTitle("last days at juno");
 
         CreateMovieResponse createMovieResponse = movieService.createMovie(createMovieRequest);
 

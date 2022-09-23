@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,7 +26,6 @@ public class CinemaServiceImpl implements CinemaService{
         if(locationAlreadyExist(createCinemaRequest.getLocation())){
             throw new CinemaException("Cinema with location already exist");
         }
-            log.info("................."+createCinemaRequest.getLocation());
         CreateCinemaResponse response = new CreateCinemaResponse();
         Cinema cinema = new Cinema(createCinemaRequest.getName(),createCinemaRequest.getNumberOfHalls(),createCinemaRequest.getCity(), createCinemaRequest.getLocation());
         cinemaRepository.save(cinema);
@@ -34,6 +34,30 @@ public class CinemaServiceImpl implements CinemaService{
         response.setNumberOfHalls(cinema.getNumberOfHalls());
         response.setCity(cinema.getCity());
         return response;
+    }
+
+    @Override
+    public void deleteAll() {
+         cinemaRepository.deleteAll();
+    }
+
+    @Override
+    public List<Cinema> getListOfCinema() {
+        return cinemaRepository.findAll();
+
+    }
+
+    @Override
+    public List<String> getListOfAllCinemaCities() {
+        List<Cinema> cinemas = getListOfCinema();
+
+        List<String> foundCities = new ArrayList<>();
+        for (Cinema cinema: cinemas) {
+           String city =  cinema.getCity();
+           foundCities.add(city);
+
+        }
+        return foundCities;
     }
 
     private boolean locationAlreadyExist(String location) {
