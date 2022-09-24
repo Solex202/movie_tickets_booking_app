@@ -12,7 +12,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -99,7 +102,7 @@ class MovieServiceTest {
         createMovieRequest.setGenre("action, drama, thriller");
         createMovieRequest.setLanguage("english, dutch, french");
         createMovieRequest.setId("2321232");
-        createMovieRequest.setTitle("last days at juno");
+        createMovieRequest.setTitle("last days");
         createMovieRequest.setDuration("02:45:23");
 
         CreateMovieResponse createMovieResponse = movieService.createMovie(createMovieRequest);
@@ -119,10 +122,10 @@ class MovieServiceTest {
         createMovieRequest2.setGenre("action, drama, thriller");
         createMovieRequest2.setLanguage("english, dutch, french");
         createMovieRequest2.setId("2321232");
-        createMovieRequest2.setTitle("last days at juno");
+        createMovieRequest2.setTitle("shege");
         createMovieRequest2.setDuration("02:45:23");
 
-        CreateMovieResponse createMovieResponse2 = movieService.createMovie(createMovieRequest);
+        CreateMovieResponse createMovieResponse2 = movieService.createMovie(createMovieRequest2);
 
         assertThat(createMovieResponse2.getCity(), is(createMovieRequest2.getCity()));
         assertThat(createMovieResponse2.getTitle(), is(createMovieRequest2.getTitle()));
@@ -134,13 +137,116 @@ class MovieServiceTest {
         assertThat(createMovieResponse2.getGenre().contains("drama"), is(true));
         assertThat(createMovieResponse2.getGenre().contains("thriller"), is(true));
 
-//        SearchMovieRequest searchRequest = new SearchMovieRequest();
-//        searchRequest.setTitle(createMovieRequest2.getTitle());
+
         List<Movie> seenTitle = movieService.searchMovie(createMovieRequest2.getTitle());
+        assertThat(seenTitle.size(), is(1));
+    }
+
+    @Test
+    void testThatCanSearchMovieByLanguage(){
+        CreateMovieRequest createMovieRequest = new CreateMovieRequest();
+        createMovieRequest.setCity("lagos");
+        createMovieRequest.setGenre("action, drama, thriller");
+        createMovieRequest.setLanguage("english, dutch, french");
+        createMovieRequest.setId("2321232");
+        createMovieRequest.setTitle("last days");
+        createMovieRequest.setDuration("02:45:23");
+
+        CreateMovieResponse createMovieResponse = movieService.createMovie(createMovieRequest);
+
+        assertThat(createMovieResponse.getCity(), is(createMovieRequest.getCity()));
+        assertThat(createMovieResponse.getTitle(), is(createMovieRequest.getTitle()));
+        assertThat(createMovieResponse.getDuration(), is(createMovieRequest.getDuration()));
+        assertThat(createMovieResponse.getLanguage().contains("english"), is(true));
+        assertThat(createMovieResponse.getLanguage().contains("dutch"), is(true));
+        assertThat(createMovieResponse.getLanguage().contains("french"), is(true));
+        assertThat(createMovieResponse.getGenre().contains("action"), is(true));
+        assertThat(createMovieResponse.getGenre().contains("drama"), is(true));
+        assertThat(createMovieResponse.getGenre().contains("thriller"), is(true));
+
+        CreateMovieRequest createMovieRequest2 = new CreateMovieRequest();
+        createMovieRequest2.setCity("lagos");
+        createMovieRequest2.setGenre("action, drama, thriller");
+        createMovieRequest2.setLanguage("english, dutch, french");
+        createMovieRequest2.setId("2321232");
+        createMovieRequest2.setTitle("shege");
+        createMovieRequest2.setDuration("02:45:23");
+
+        CreateMovieResponse createMovieResponse2 = movieService.createMovie(createMovieRequest2);
+
+        assertThat(createMovieResponse2.getCity(), is(createMovieRequest2.getCity()));
+        assertThat(createMovieResponse2.getTitle(), is(createMovieRequest2.getTitle()));
+        assertThat(createMovieResponse2.getDuration(), is(createMovieRequest2.getDuration()));
+        assertThat(createMovieResponse2.getLanguage().contains("english"), is(true));
+        assertThat(createMovieResponse2.getLanguage().contains("dutch"), is(true));
+        assertThat(createMovieResponse2.getLanguage().contains("french"), is(true));
+        assertThat(createMovieResponse2.getGenre().contains("action"), is(true));
+        assertThat(createMovieResponse2.getGenre().contains("drama"), is(true));
+        assertThat(createMovieResponse2.getGenre().contains("thriller"), is(true));
+
+
+        List<Movie> movieWithLang = movieService.searchMovie("french");
+        assertEquals(2, movieWithLang.size());
+    }
+
+    @Test
+    void testThatCanSearchMovieByGenre(){
+        CreateMovieRequest createMovieRequest = new CreateMovieRequest();
+        createMovieRequest.setCity("lagos");
+        createMovieRequest.setGenre("action, drama, thriller");
+        createMovieRequest.setLanguage("english, dutch, french");
+        createMovieRequest.setId("2321232");
+        createMovieRequest.setTitle("last days");
+        createMovieRequest.setDuration("02:45:23");
+
+        CreateMovieResponse createMovieResponse = movieService.createMovie(createMovieRequest);
+
+        assertThat(createMovieResponse.getCity(), is(createMovieRequest.getCity()));
+        assertThat(createMovieResponse.getTitle(), is(createMovieRequest.getTitle()));
+        assertThat(createMovieResponse.getDuration(), is(createMovieRequest.getDuration()));
+        assertThat(createMovieResponse.getLanguage().contains("english"), is(true));
+        assertThat(createMovieResponse.getLanguage().contains("dutch"), is(true));
+        assertThat(createMovieResponse.getLanguage().contains("french"), is(true));
+        assertThat(createMovieResponse.getGenre().contains("action"), is(true));
+        assertThat(createMovieResponse.getGenre().contains("drama"), is(true));
+        assertThat(createMovieResponse.getGenre().contains("thriller"), is(true));
+
+        CreateMovieRequest createMovieRequest2 = new CreateMovieRequest();
+        createMovieRequest2.setCity("lagos");
+        createMovieRequest2.setGenre("action, drama, thriller");
+        createMovieRequest2.setLanguage("english, dutch, french");
+        createMovieRequest2.setId("2321232");
+        createMovieRequest2.setTitle("shege");
+        createMovieRequest2.setDuration("02:45:23");
+
+        CreateMovieResponse createMovieResponse2 = movieService.createMovie(createMovieRequest2);
+
+        assertThat(createMovieResponse2.getCity(), is(createMovieRequest2.getCity()));
+        assertThat(createMovieResponse2.getTitle(), is(createMovieRequest2.getTitle()));
+        assertThat(createMovieResponse2.getDuration(), is(createMovieRequest2.getDuration()));
+        assertThat(createMovieResponse2.getLanguage().contains("english"), is(true));
+        assertThat(createMovieResponse2.getLanguage().contains("dutch"), is(true));
+        assertThat(createMovieResponse2.getLanguage().contains("french"), is(true));
+        assertThat(createMovieResponse2.getGenre().contains("action"), is(true));
+        assertThat(createMovieResponse2.getGenre().contains("drama"), is(true));
+        assertThat(createMovieResponse2.getGenre().contains("thriller"), is(true));
+
+
+        List<Movie> movieWithGenre = movieService.searchMovie("thriller");
+        assertEquals(2, movieWithGenre.size());
+    }
+
+    @Test
+    void testThatWillThrowExceptionIfSearchIsUnsuccessful(){
+        assertThrows(MovieException.class, ()->movieService.searchMovie("dem mama"));
     }
     @AfterEach
     void tearDown() {
-
         movieService.deleteAll();
     }
+
+//    String [] genres = createMovieRequest.getGenre().toLowerCase().split(",");
+//    Set<String> genreSets = Arrays.stream(genres).toList().stream().map(genre -> genre.trim()).collect(Collectors.toSet());
+////        Set<String> movieGenres = new HashSet<>(genreSet);
+//        movie.setGenre(genreSets);
 }
