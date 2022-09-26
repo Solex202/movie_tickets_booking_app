@@ -20,4 +20,5 @@ public class Movie {
     private String city;
     private String duration;
     private Show [] shows;
+    private String addedDate;
 }
